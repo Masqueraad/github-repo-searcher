@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import RepoContext from "../../repositoryContext";
 
 function Result({ onLoading, repos }) {
+  const repository = useContext(RepoContext);
+  console.log(repository);
+
   return (
     <div className="repo-section">
       {onLoading ? (

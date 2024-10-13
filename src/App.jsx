@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "./components/Header";
 import SearchInput from "./components/SearchInput";
 import Result from "./components/Result";
+import RepoContext from "../repositoryContext";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -33,13 +34,15 @@ function App() {
 
   return (
     <>
-      <Header title="Repo Searcher" />
-      <SearchInput
-        query={query}
-        onQuery={handleQuery}
-        onSearch={handleSearch}
-      />
-      <Result onLoading={isLoading} repos={repos} />
+      <RepoContext.Provider value="misha lox2">
+        <Header title="Repo Searcher" />
+        <SearchInput
+          query={query}
+          onQuery={handleQuery}
+          onSearch={handleSearch}
+        />
+        <Result onLoading={isLoading} repos={repos} />
+      </RepoContext.Provider>
     </>
   );
 }
