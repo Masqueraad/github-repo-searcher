@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Header from "./components/Header";
+import SearchInput from "./components/SearchInput";
+import Result from "./components/Result";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -8,6 +11,7 @@ function App() {
   const handleQuery = (e) => {
     setQuery(e.target.value);
   };
+
   const handleSearch = () => {
     if (query.trim() === "") {
       alert("The input value can not be empty");
@@ -26,45 +30,16 @@ function App() {
       });
     setQuery("");
   };
+
   return (
     <>
-      <h1>Repo Searcher</h1>
-      <div className="search">
-        <input
-          className="search-txt"
-          type="text"
-          placeholder="Type to search"
-          value={query}
-          onChange={handleQuery}
-        />
-
-        <button className="search-btn" onClick={handleSearch}>
-          <i className="fas fa-search"></i>
-        </button>
-      </div>
-      <div className="repo-section">
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          repos.map((data, index) => {
-            return (
-              <>
-                <ul className="repo-container" key={index}>
-                  <li className="repo-image">
-                    <img src={data.owner.avatar_url} alt="Repo image" />
-                  </li>
-                  <li className="repo-name">{data.name}</li>
-                  <li className="repo-link">
-                    <a target="_blank" href={data.git_url}>
-                      {data.git_url}
-                    </a>
-                  </li>
-                </ul>
-              </>
-            );
-          })
-        )}
-      </div>
+      <Header title="Repo Searcher" />
+      <SearchInput
+        query={query}
+        onQuery={handleQuery}
+        onSearch={handleSearch}
+      />
+      <Result onLoading={isLoading} repos={repos} />
     </>
   );
 }
